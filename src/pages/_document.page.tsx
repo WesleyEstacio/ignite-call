@@ -21,8 +21,6 @@ export default function Document() {
           id="stitches"
           dangerouslySetInnerHTML={{ __html: getCssText() }}
         />
-
-        <title>Agendamento Simplificado</title>
       </Head>
       <body>
         <Main />
