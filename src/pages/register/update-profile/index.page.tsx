@@ -1,7 +1,14 @@
 import { api } from '@/lib/axios'
 import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Avatar, Button, Heading, MultiStep, Text, TextArea } from '@ignite-ui/react'
+import {
+  Avatar,
+  Button,
+  Heading,
+  MultiStep,
+  Text,
+  TextArea,
+} from '@ignite-ui/react'
 import { GetServerSideProps } from 'next'
 import { getServerSession } from 'next-auth'
 import { useSession } from 'next-auth/react'
@@ -32,7 +39,7 @@ export default function UpdateProfile() {
 
   async function handleUpdateProfile(data: UpdateProfileData) {
     await api.put('/users/profile', {
-      bio: data.bio
+      bio: data.bio,
     })
 
     await router.push(`/schedule/${session.data?.user.username}`)
@@ -51,10 +58,11 @@ export default function UpdateProfile() {
 
       <ProfileBox as="form" onSubmit={handleSubmit(handleUpdateProfile)}>
         <label>
-          <Text size={'sm'}>
-            Foto de perfil
-          </Text>
-          <Avatar src={session.data?.user.avatar_url} alt={session.data?.user.name} />
+          <Text size={'sm'}>Foto de perfil</Text>
+          <Avatar
+            src={session.data?.user.avatar_url}
+            alt={session.data?.user.name}
+          />
         </label>
 
         <label>
@@ -78,12 +86,12 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getServerSession(
     req,
     res,
-    buildNextAuthOptions(req,res)
+    buildNextAuthOptions(req, res),
   )
 
   return {
     props: {
-      session
-    }
+      session,
+    },
   }
 }
